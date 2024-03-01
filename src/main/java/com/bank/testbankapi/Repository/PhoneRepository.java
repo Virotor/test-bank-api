@@ -17,16 +17,18 @@ import jakarta.validation.constraints.NotNull;
 @Repository
 public interface PhoneRepository extends CrudRepository<Phone, Long> {
 
-    public Optional<Phone> findByValue(String value);
+        public Optional<Phone> findByValue(String value);
 
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE phone " +
-            "SET value = :newValue " +
-            "WHERE value = :oldValue ", nativeQuery = true)
-    public Integer updatePhone(@NotBlank @Param("newValue") String newValue,
-            @Param("oldValue") @NotNull String oldValue);
+        @Transactional
+        @Modifying
+        @Query(value = "UPDATE phone " +
+                        "SET value = :newValue " +
+                        "WHERE value = :oldValue ", nativeQuery = true)
+        public Integer updatePhone(@NotBlank @Param("newValue") String newValue,
+                        @Param("oldValue") @NotNull String oldValue);
 
-    public void deleteByValue(String value);
+        @Transactional
+        @Modifying
+        public void deleteByValue(String value);
 
 }

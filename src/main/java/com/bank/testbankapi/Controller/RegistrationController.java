@@ -9,13 +9,13 @@ import com.bank.testbankapi.DTO.RegistrationRequest;
 import com.bank.testbankapi.Service.RegistrationService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @RestController
 @RequestMapping("/registration")
@@ -23,20 +23,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Tag(name = "Регистрация пользователя")
 public class RegistrationController {
 
-    final private RegistrationService  registrationService;
+    final private RegistrationService registrationService;
 
     @Operation(summary = "Регистрация нового пользователя")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Пользователь создан"),
+            @ApiResponse(responseCode = "400", description = "Ошибка в создании пользователя")
+    })
     @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody @Valid  RegistrationRequest registrationRequest) {
+    public ResponseEntity<?> createUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
         return registrationService.registrationUser(registrationRequest);
     }
-    
-                    
 
-    @GetMapping(path = "/message")
-    public ResponseEntity<?> getMessage(){
-        return  ResponseEntity.ok("Hello world");
-    } 
-
-    
 }

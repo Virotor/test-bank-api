@@ -17,15 +17,17 @@ import jakarta.validation.constraints.NotNull;
 @Repository
 public interface EmailRepository extends CrudRepository<Email, Long> {
 
-    public Optional<Email> findByValue(String value);
+        public Optional<Email> findByValue(String value);
 
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE email " +
-            "SET value = :newValue " +
-            "WHERE value = :oldValue", nativeQuery = true)
-    public Integer updateEmail(@NotBlank @Param("newValue") String newValue,
-            @NotNull @Param("oldValue") String oldValue);
+        @Transactional
+        @Modifying
+        @Query(value = "UPDATE email " +
+                        "SET value = :newValue " +
+                        "WHERE value = :oldValue", nativeQuery = true)
+        public Integer updateEmail(@NotBlank @Param("newValue") String newValue,
+                        @NotNull @Param("oldValue") String oldValue);
 
-    public void deleteByValue(String value);
+        @Transactional
+        @Modifying
+        public void deleteByValue(String value);
 }

@@ -15,9 +15,9 @@ BEGIN
     LOCK TABLE account IN SHARE MODE;
 	FOR amount_record IN SELECT amount, amount_percent, id FROM account LOOP
 		current_amount_percent := (amount_record.amount+amount_record.amount_percent)*1.05;
-		if current_amount_percent >= (amount_record.amount*2.07) then
+		if current_amount_percent >= (amount_record.amount*3.07) then
 			RAISE NOTICE 'Title: %, Length: %', amount_record.amount, amount_record.amount_percent;
-			current_amount_percent := amount_record.amount_percent;
+			current_amount_percent := amount_record.amount*2.07;
 		else 
 			current_amount_percent := current_amount_percent-amount_record.amount;
 		end if;

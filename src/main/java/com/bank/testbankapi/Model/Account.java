@@ -25,6 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Check(constraints =  "amount >= 0")
+@Check(constraints =  "amount_percent >= 0")
 public class Account {
     
     @Id
