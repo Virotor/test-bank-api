@@ -31,6 +31,12 @@ public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "Получение данных пользователя")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+            }),
+    })
     @GetMapping("/getInfo")
     public ResponseEntity<?> getUserInfo() {
 

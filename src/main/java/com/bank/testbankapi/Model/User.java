@@ -3,7 +3,7 @@ package com.bank.testbankapi.Model;
 import java.util.Date;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -31,6 +31,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -51,6 +52,7 @@ public class User {
 
     private String firstName;
 
+    @JsonIgnore
     private String password;
 
 }

@@ -18,6 +18,7 @@ import lombok.Setter;
 public abstract class Contact {
 
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 

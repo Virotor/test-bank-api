@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.bank.testbankapi.DTO.AppError;
 import com.bank.testbankapi.Model.User;
-import com.bank.testbankapi.Repository.UserRepository;
 import com.bank.testbankapi.Repository.UserSearchRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,10 +24,6 @@ public class SearchService {
 
     public ResponseEntity<?> searchByBirthDay(Date date, Integer startPosition, Integer count) {
         TypedSort<User> user = Sort.sort(User.class);
-
-        // Sort sort = user.by(User::getBirthDay).ascending()
-        // .and(user.by(User::getLastName).ascending())
-        // .and(user.by(User::getFirstName).ascending());
 
         Sort sort = user.by(User::getLastName).ascending()
                 .and(user.by(User::getFirstName).ascending());

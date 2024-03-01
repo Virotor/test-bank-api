@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bank.testbankapi.DTO.JwtResponse;
 import com.bank.testbankapi.DTO.TransferRequest;
 import com.bank.testbankapi.Service.AccountService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,22 +28,6 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
     private final AccountService accountService;
-
-    // @GetMapping(path = "/message")
-    // public ResponseEntity<?> getMessage() {
-    // var s = SecurityContextHolder.getContext().getAuthentication();
-    // log.debug(s.toString());
-    // return ResponseEntity.ok("Hello world ");
-    // }
-
-    // @GetMapping("/getInfo")
-    // @Schema(description = "Получение информации о счёте пользователя")
-    // public ResponseEntity<?> getUserAccount() {
-    // var username =
-    // SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-    // log.debug(username);
-    // return accountService.getUserAccount(username);
-    // }
 
     @Schema(description = "Перевод денег со счёта пользователя на счёт другого пользователя")
     @Operation(summary = "Перевод денег")
