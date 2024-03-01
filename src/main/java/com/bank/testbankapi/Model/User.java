@@ -1,18 +1,20 @@
 package com.bank.testbankapi.Model;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,25 +23,32 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "bank_user")
+@Table(name = "bank_users", uniqueConstraints = @UniqueConstraint(columnNames = { "last_name",
+        "fisrt_name" }), indexes = {
+                @Index(name = "f_nam_l_name", columnList = "firstName , lastName"),
+                @Index(name = "birh_dat", columnList = "birthDay"), })
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    private Set<Contacts> contacts;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference(value = "user_phones")
+    private Set<Phone> phones;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference(value = "user_emails")
+    private Set<Email> emails;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference(value = "user_accounts")
     private Set<Account> account;
 
-
-    private Date birhDay;
+    private Date birthDay;
 
     private String lastName;
-    
+
     private String firstName;
 
     private String password;

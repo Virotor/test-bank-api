@@ -17,9 +17,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import lombok.RequiredArgsConstructor;
-import com.bank.testbankapi.Model.User;
-import com.bank.testbankapi.Service.UserService;;
+import com.bank.testbankapi.Service.UserService;
+
+import lombok.RequiredArgsConstructor;;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -43,13 +43,19 @@ public class DefaultSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/registration/**").permitAll()
-                        .requestMatchers("/account/**").authenticated()
-                        .anyRequest().permitAll())
+                        .requestMatchers("/registration/*").permitAll()
+                        .requestMatchers("/auth/*").permitAll()
+                        .requestMatchers("/swagger-ui/**",
+                                "/swagger-resources/*",
+                                "/v3/api-docs/**",
+                                "/search/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
                 .exceptionHandling((exception) -> exception
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                /// .addFilterBefore(jwtRequestFilter,
-                /// UsernamePasswordAuthenticationFilter.class)
+                // .oauth2ResourceServer((oauth)->oauth.jwt(null))
+                .addFilterBefore(jwtRequestFilter,
+                        UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable);

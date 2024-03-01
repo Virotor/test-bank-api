@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.bank.testbankapi.Model.User;
 
+
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-
-    Optional<User> findByFirstName(String firstName);
-
+public interface UserRegistrationRepository extends CrudRepository<User, Long> {
+    
     public Optional<User> findByFirstNameAndLastName(String firstName, String lastName);
 
-
 }
+ 
