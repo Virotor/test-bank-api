@@ -1,23 +1,25 @@
 package com.bank.testbankapi.DTO;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransferRequest {
 
-
-    private BigDecimal amount;
-
+    @JsonProperty
+    @NotBlank
+    private String amount;
+    @JsonProperty
+    @NotBlank
     private String firstName;
-
+    @JsonProperty
+    @NotBlank
     private String lastName;
 
 }

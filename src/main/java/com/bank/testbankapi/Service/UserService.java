@@ -117,8 +117,12 @@ public class UserService implements UserDetailsService {
 
     public ResponseEntity<?> deleteEmail(String deleteEmail) {
         try {
-            contactService.deleteEmail(deleteEmail);
-            return ResponseEntity.ok("Почта успешно удалена");
+            var user = getUserByToken();
+            if(user.getEmails().size()!=1){
+                contactService.deleteEmail(deleteEmail);
+                return ResponseEntity.ok("Почта успешно удалена");
+            }
+            return ResponseEntity.ok("Нельзя удалить последнюю почту");
         } catch (Exception e) {
             return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), "Не удалось удалить почту"),
                     HttpStatus.NOT_FOUND);
@@ -128,8 +132,12 @@ public class UserService implements UserDetailsService {
 
     public ResponseEntity<?> deletePhone(String deletePhone) {
         try {
-            contactService.deletePhone(deletePhone);
-            return ResponseEntity.ok("Номер успешно удалена");
+            var user = getUserByToken();
+            if(user.getPhones().size()!=1){
+                contactService.deletePhone(deletePhone);
+                return ResponseEntity.ok("Номер успешно удалена");
+            }
+            return ResponseEntity.ok("Нельзя удалить последний номер телефона");
         } catch (Exception e) {
             return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), "Не удалось удалить почту"),
                     HttpStatus.NOT_FOUND);

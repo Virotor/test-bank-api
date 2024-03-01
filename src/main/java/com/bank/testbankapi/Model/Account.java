@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class Account {
 
     
     private BigDecimal amount;
+
+    
+    private BigDecimal amount_percent;
     
     @ManyToOne
     @JoinColumn(name="USER_ID", nullable=false)
